@@ -93,7 +93,7 @@ if st.button("🔍 Predict Loan Risk"):
 
     with st.spinner("Running prediction..."):
         try:
-            response = requests.post("http://127.0.0.1:8000/predict", json=payload, timeout=10)
+            response = requests.post("https://ann-pipeline-backend.onrender.com/predict", json=payload, timeout=10)
             response.raise_for_status()
             result = response.json()
 
@@ -124,7 +124,7 @@ if st.button("🔍 Predict Loan Risk"):
             st.markdown("""
                 <div class="error-box">
                     ❌ <strong>Connection Error:</strong> Could not reach the API at
-                    <code>http://127.0.0.1:8000</code>. Make sure your FastAPI server is running.
+                    <code>https://ann-pipeline-backend.onrender.com</code>. Make sure your FastAPI server is running.
                 </div>
             """, unsafe_allow_html=True)
 
@@ -147,12 +147,12 @@ with st.sidebar:
     loan risk based on applicant details.
 
     **API Endpoint:** `POST /predict`
-    **Backend:** FastAPI on `http://127.0.0.1:8000`
+    **Backend:** FastAPI on `https://ann-pipeline-backend.onrender.com`
     """)
     st.divider()
     st.markdown("**Model Info**")
     try:
-        info = requests.get("http://127.0.0.1:8000/model-info", timeout=3).json()
+        info = requests.get("https://ann-pipeline-backend.onrender.com/model-info", timeout=3).json()
         st.json(info)
     except Exception:
         st.warning("Start the FastAPI server to see model info.")
@@ -160,7 +160,7 @@ with st.sidebar:
     st.divider()
     st.markdown("**Health Check**")
     try:
-        health = requests.get("http://127.0.0.1:8000/health", timeout=3).json()
+        health = requests.get("https://ann-pipeline-backend.onrender.com/health", timeout=3).json()
         st.success(f"API Status: {health.get('status', 'OK')}")
     except Exception:
         st.error("API is offline")
