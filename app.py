@@ -104,11 +104,7 @@ if st.button("🔍 Predict Loan Risk"):
             prediction = result.get("prediction") or result.get("result") or result.get("loan_approved")
 
             if prediction is not None:
-                st.markdown(f"""
-                    <div class="result-box">
-                        ✅ <strong>Predicted Value:</strong> {prediction}
-                    </div>
-                """, unsafe_allow_html=True)
+                st.success(f"✅ Predicted Value: {prediction}")
             else:
                 st.warning(f"Received response but couldn't find prediction key. Full response: {result}")
 
